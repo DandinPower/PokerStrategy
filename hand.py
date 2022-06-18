@@ -1,3 +1,5 @@
+from card import Card
+
 #手牌結合牌面的類別
 class HandWithBoard:
     def __init__(self, card, board):
@@ -8,16 +10,16 @@ class HandWithBoard:
         self.type = 0
         self.score = 0
         self.isFlush = False 
-        self.IsStraight = False 
-        self.IsFourOfAKind = False 
-        self.IsThreeOfAKind = False 
+        self.isStraight = False 
+        self.isFourOfAKind = False 
+        self.isThreeOfAKind = False 
         self.PairNums = 0
         self.Check()
 
     #初始化手牌加牌面
     def Init(self):
         for i in range(5):
-            self.tempBoard.append(self.board[i])
+            self.tempBoard.append(self.board.cards[i])
         for i in range(2):
             self.tempBoard.append(self.cards[i])
         
@@ -30,19 +32,40 @@ class HandWithBoard:
         self.PairNums = self.GetPairNums()
 
     def IsFlush(self):
-        pass 
-
+        self.club = []
+        self.diamond = [] 
+        self.heart = [] 
+        self.spade = []
+        for card in self.tempBoard:
+            if card.flower == 0:
+                self.club.append(card)
+            elif card.flower == 1:
+                self.diamond.append(card)
+            elif card.flower == 2:
+                self.heart.append(card)
+            else:
+                self.spade.append(card)
+        if len(self.club) >= 5:
+            return True 
+        if len(self.diamond) >= 5:
+            return True
+        if len(self.heart) >= 5:
+            return True 
+        if len(self.spade) >= 5:
+            return True 
+        return False  
+        
     def IsStraight(self):
-        pass 
+        return True
 
     def IsFourOfAKind(self):
-        pass 
+        return True
 
     def IsThreeOfAKind(self):
-        pass 
+        return True
 
-    def PairNums(self):
-        pass 
+    def GetPairNums(self):
+        return -1
 
 #手牌的基本類別
 class Hand:
